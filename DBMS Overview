@@ -1,0 +1,34 @@
+📖 Short Notes
+1. What is DBMS?
+DBMS (Database Management System) is software that acts as an interface between users and the database. It allows you to create, store, manage, update, and retrieve data efficiently.
+
+Examples: MySQL, PostgreSQL, Oracle, Microsoft SQL Server, SQLite.
+
+2. Key Components of DBMS
+Hardware: Physical devices like hard drives and servers where data is stored.
+
+Software: The DBMS program (e.g., MySQL Server) that controls data operations.
+
+Data: The actual information being stored.
+
+Users: Programmers, database administrators (DBAs), and end-users who access the data.
+
+3. Core Functions of DBMS
+Data Storage & Management: Organizes large amounts of data systematically.
+
+Security & Access Control: Restricts unauthorized user access.
+
+Data Integrity: Ensures data remains accurate and consistent across operations.
+
+Backup & Recovery: Prevents data loss during system failures or crashes.
+
+
+-- Example: Creating a user table managed by DBMS
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(50),
+    email VARCHAR(100)
+);
+
+-- Retrieving data using DBMS engine
+SELECT * FROM users;
