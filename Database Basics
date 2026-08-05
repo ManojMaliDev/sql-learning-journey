@@ -1,0 +1,35 @@
+# 📄  Database Basics
+
+## 📖 Short Notes
+
+### 1. What is a Database?
+A **Database** is a digital container that holds organized data so you can search, update, and manage it quickly.
+
+### 2. Data vs. Information
+* **Data (Raw):** Plain numbers or text without context.
+  * *Example:* `101`, `Manoj`, `50000`
+* **Information (Meaningful):** Data with context that makes sense.
+  * *Example:* `Employee 101 (Manoj) earns 50,000.`
+
+### 3. Why use a Database instead of Files (Excel/Text)?
+* **No Duplication:** Prevents saving the same data repeatedly.
+* **Accuracy:** Ensures data stays correct and updated everywhere.
+* **Multi-User Access:** Multiple users can read and write data at the same time safely.
+* **Security:** Protects sensitive data with passwords and permissions.
+
+---
+
+## 💻 SQL Commands
+
+```sql
+-- Create a new database
+CREATE DATABASE company_db;
+
+-- Select a database to work with
+USE company_db;
+
+-- View all databases
+SHOW DATABASES;
+
+-- Delete a database
+DROP DATABASE company_db;
