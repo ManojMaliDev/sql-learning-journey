@@ -1,0 +1,37 @@
+📖 Short Notes
+1. What is RDBMS?
+RDBMS (Relational Database Management System) is an advanced version of DBMS that stores data in a relational (tabular) format—using rows and columns.
+
+Relationships are established between tables using shared fields (Primary Keys and Foreign Keys).
+
+Examples: MySQL, PostgreSQL, Oracle DB, MS SQL Server.
+
+2. Key Terms in RDBMS
+Table (Relation): A collection of data organized into rows and columns.
+
+Row (Tuple / Record): A single horizontal entry representing one record (e.g., one employee).
+
+Column (Attribute / Field): A vertical entity representing a specific data property (e.g., salary, email).
+
+Keys: Special columns used to uniquely identify records or connect two tables (Primary Key, Foreign Key).
+
+3. Key Differences: DBMS vs. RDBMS
+
+Data Format:
+DBMS: Stores data as individual files, XML, or hierarchical trees.
+RDBMS: Stores data systematically in tables consisting of rows and columns.
+
+Data Relationships:
+DBMS: Relationships between data entities are not supported or are very basic.
+RDBMS: Formally links tables together through Primary Keys and Foreign Keys.
+
+
+Data Volume & Scale:
+DBMS: Best suited for small datasets and simple applications.
+RDBMS: Built to handle large, enterprise-grade datasets with complex querying needs.
+
+Data Normalization:
+DBMS: Does not support normalization, leading to redundant data.
+RDBMS: Fully supports normalization techniques to minimize data redundancy.
+
+RDBMS: Fully supports normalization techniques to minimize data redundancy.
