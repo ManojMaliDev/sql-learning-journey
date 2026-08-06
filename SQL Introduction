@@ -1,0 +1,61 @@
+SQL (Structured Query Language) – Introduction
+
+SQL (Structured Query Language) is a standard programming language used to store, manage, retrieve, and manipulate data in relational database management systems (RDBMS). It allows users to communicate with databases and perform operations such as creating tables, inserting data, updating records, deleting data, and retrieving information using queries.
+
+Developed By:
+SQL was originally developed at IBM in the early 1970s.
+It was created by Donald D. Chamberlin and Raymond F. Boyce.
+The language was initially called SEQUEL (Structured English Query Language).
+Later, the name was changed to SQL due to trademark issues.
+History:
+1970: Dr. Edgar F. Codd introduced the concept of the relational database model.
+1974–1975: IBM researchers developed SEQUEL for managing relational databases.
+1986: SQL became an ANSI standard.
+1987: SQL became an ISO standard.
+SQL Full Form:
+
+SQL = Structured Query Language
+
+SQL is used with:
+MySQL
+PostgreSQL
+Oracle Database
+Microsoft SQL Server
+SQLite
+Amazon Aurora
+Why SQL is Important:
+Used to handle large amounts of structured data.
+Helps analysts extract meaningful insights from databases.
+Essential skill for Data Analysts, Data Engineers, Backend Developers, and Database Administrators.
+Main Categories of SQL Commands:
+
+1. DDL (Data Definition Language)
+
+CREATE
+ALTER
+DROP
+TRUNCATE
+
+2. DML (Data Manipulation Language)
+
+INSERT
+UPDATE
+DELETE
+
+3. DQL (Data Query Language)
+
+SELECT
+
+4. DCL (Data Control Language)
+
+GRANT
+REVOKE
+
+5. TCL (Transaction Control Language)
+
+COMMIT
+ROLLBACK
+SAVEPOINT
+Simple Example:
+SELECT name, salary
+FROM employees;
