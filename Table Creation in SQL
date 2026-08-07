@@ -83,6 +83,8 @@ Viewing Tables
 To display all tables in the database:
 
 SHOW TABLES;
+
+
 Important Points
 Tables are created inside a database.
 A table contains rows and columns.
@@ -104,62 +106,5 @@ CREATE TABLE sales (
 
 This table can store sales transaction data.
 
-Practice Questions (Beginner)
 
-Q1.Create a table named students with:
-student_id
-student_name
-age
-city
-
-Q2.Create a table named employees with:
-emp_id
-emp_name
-department
-salary
-
-Q3.Create a table named products with:
-product_id
-product_name
-price
-category
-
-
-Q4.Create a table named customers with:
-customer_id
-customer_name
-email
-phone_number
-
-Q5.Create a table named orders with:
-order_id
-customer_id
-order_date
-total_amount
-
-Q6. Create an employee table where emp_id is the Primary Key.
-
-Q7. Create a student table where student_name cannot be empty.
-
-Q8.Create a bank account table with:
-account_id
-account_holder
-account_type
-balance
-
-Q9.Create a library table with:
-
-book_id
-book_name
-author
-price
-
-Q10.  a sales_analysis table with:
-
-sale_id
-customer_id
-product_name
-category
-quantity
-sales_amount
-sale_date
+p
