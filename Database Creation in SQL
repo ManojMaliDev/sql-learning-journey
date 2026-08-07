@@ -1,0 +1,79 @@
+Database Creation in SQL
+Definition
+
+Database Creation is the process of creating a new database where we can store and manage data in an organized way.
+
+In SQL, we use the CREATE DATABASE command to create a new database.
+
+Simple Definition:
+
+The CREATE DATABASE command is used to create a new database in SQL.
+
+Syntax
+CREATE DATABASE database_name;
+
+database_name → Name of the database you want to create.
+
+Example 1: Create a Database
+CREATE DATABASE company;
+
+Explanation:
+
+Creates a new database named company.
+This database can store tables related to company data.
+Viewing Databases
+
+To see all available databases:
+
+SHOW DATABASES;
+
+Example Output:
+
+company
+student_management
+sales
+Selecting a Database
+
+After creating a database, we need to select it before creating tables.
+
+Syntax:
+USE database_name;
+Example:
+USE company;
+
+Explanation:
+
+Activates the company database.
+All upcoming table operations will happen inside this database.
+Creating Database with Condition
+
+Sometimes we want to create a database only if it does not already exist.
+
+Syntax:
+CREATE DATABASE IF NOT EXISTS database_name;
+Example:
+CREATE DATABASE IF NOT EXISTS company;
+
+Explanation:
+
+Creates the database only when it is not already available.
+Prevents errors.
+Deleting a Database
+
+To permanently delete a database:
+
+Syntax:
+DROP DATABASE database_name;
+Example:
+DROP DATABASE company;
+
+Result:
+
+Database deleted permanently.
+All tables and data inside the database are removed.
+Important Points
+CREATE DATABASE is a DDL command.
+Database names should be meaningful and easy to understand.
+Always use USE before creating tables.
+DROP DATABASE permanently removes the database.
+Avoid deleting databases without backup.
