@@ -1,0 +1,117 @@
+Definition
+
+DDL (Data Definition Language) is a group of SQL commands used to create, change, and delete the structure of database objects like tables and databases.
+
+Simple Definition:
+
+DDL commands are used to manage the structure of a database.
+
+DDL Commands
+
+DDL contains mainly 5 commands:
+
+CREATE
+ALTER
+DROP
+TRUNCATE
+RENAME
+1. CREATE Command
+Definition:
+
+The CREATE command is used to create a new table or database.
+
+Syntax:
+CREATE TABLE table_name (
+    column_name datatype
+);
+Example:
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(50),
+    age INT
+);
+
+
+CREATE Command - Beginner Practice Questions (10)
+Q1.
+
+Create a table named students with the following columns:
+
+student_id (INT)
+student_name (VARCHAR(50))
+age (INT)
+city (VARCHAR(50))
+Q2.
+
+Create a table named employees with:
+
+emp_id (INT)
+emp_name (VARCHAR(100))
+department (VARCHAR(50))
+salary (DECIMAL(10,2))
+Q3.
+
+Create a table named products with:
+
+product_id (INT)
+product_name (VARCHAR(100))
+price (DECIMAL(8,2))
+category (VARCHAR(50))
+Q4.
+
+Create a table named customers with:
+
+customer_id (INT)
+customer_name (VARCHAR(100))
+email (VARCHAR(100))
+phone_number (VARCHAR(15))
+Q5.
+
+Create a table named orders with:
+
+order_id (INT)
+customer_id (INT)
+order_date (DATE)
+total_amount (DECIMAL(10,2))
+Q6.
+
+Create a table named courses with:
+
+course_id (INT)
+course_name (VARCHAR(100))
+duration (INT)
+fees (DECIMAL(10,2))
+Q7.
+
+Create a table named bank_accounts with:
+
+account_id (INT)
+account_holder (VARCHAR(100))
+account_type (VARCHAR(50))
+balance (DECIMAL(12,2))
+Q8.
+
+Create a table named library_books with:
+
+book_id (INT)
+book_name (VARCHAR(100))
+author_name (VARCHAR(100))
+price (DECIMAL(8,2))
+Q9.
+
+Create a table named attendance with:
+
+attendance_id (INT)
+student_id (INT)
+attendance_date (DATE)
+status (VARCHAR(20))
+Q10. (Mini Project Level)
+
+Create a table named employee_management with:
+
+emp_id (INT)
+emp_name (VARCHAR(100))
+age (INT)
+department (VARCHAR(50))
+salary (DECIMAL(10,2))
+joining_date (DATE)
