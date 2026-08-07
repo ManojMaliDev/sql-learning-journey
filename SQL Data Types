@@ -1,0 +1,412 @@
+
+# SQL Data Types
+
+## Definition
+
+**Data Types define the type of data that can be stored in a database column.**
+
+### Simple Definition:
+
+SQL Data Types specify what type of value a column can store, such as numbers, text, dates, or logical values.
+
+### Examples:
+
+* Name → Text data
+* Age → Number data
+* Date of Birth → Date data
+* Salary → Decimal number
+
+---
+
+# Categories of SQL Data Types
+
+SQL Data Types are mainly divided into:
+
+1. Numeric Data Types
+2. Character/String Data Types
+3. Date and Time Data Types
+4. Boolean Data Type
+
+---
+
+# 1. Numeric Data Types
+
+Numeric data types are used to store numbers.
+
+---
+
+## 1. INT (Integer)
+
+### Definition:
+
+INT stores whole numbers without decimal values.
+
+### Syntax:
+
+```sql
+column_name INT
+```
+
+### Example:
+
+```sql
+CREATE TABLE students (
+    student_id INT,
+    age INT
+);
+```
+
+### Stored Values:
+
+```
+1
+25
+100
+```
+
+### Used For:
+
+* IDs
+* Age
+* Quantity
+* Count values
+
+---
+
+## 2. BIGINT
+
+### Definition:
+
+BIGINT is used to store very large integer values.
+
+### Syntax:
+
+```sql
+column_name BIGINT
+```
+
+### Example:
+
+```sql
+CREATE TABLE accounts (
+    account_number BIGINT
+);
+```
+
+### Used For:
+
+* Account numbers
+* Large transaction IDs
+* Large numeric values
+
+---
+
+## 3. DECIMAL / NUMERIC
+
+### Definition:
+
+DECIMAL is used to store numbers with decimal values.
+
+### Syntax:
+
+```sql
+DECIMAL(total_digits, decimal_digits)
+```
+
+### Example:
+
+```sql
+CREATE TABLE employees (
+    salary DECIMAL(10,2)
+);
+```
+
+### Explanation:
+
+```
+10 → Total number of digits
+2 → Number of digits after decimal point
+```
+
+### Stored Values:
+
+```
+50000.50
+12500.75
+```
+
+### Used For:
+
+* Salary
+* Price
+* Money values
+* Financial calculations
+
+---
+
+## 4. FLOAT
+
+### Definition:
+
+FLOAT stores approximate decimal numbers.
+
+### Syntax:
+
+```sql
+column_name FLOAT
+```
+
+### Example:
+
+```sql
+CREATE TABLE products (
+    rating FLOAT
+);
+```
+
+### Used For:
+
+* Scientific calculations
+* Measurements
+* Approximate values
+
+---
+
+# 2. Character/String Data Types
+
+Character data types are used to store text values.
+
+---
+
+## 1. CHAR
+
+### Definition:
+
+CHAR stores fixed-length character values.
+
+### Syntax:
+
+```sql
+column_name CHAR(size)
+```
+
+### Example:
+
+```sql
+CREATE TABLE users (
+    gender CHAR(1)
+);
+```
+
+### Stored Values:
+
+```
+M
+F
+```
+
+### Used For:
+
+* Gender
+* Country codes
+* Fixed-length values
+
+---
+
+## 2. VARCHAR
+
+### Definition:
+
+VARCHAR stores variable-length character values.
+
+### Syntax:
+
+```sql
+column_name VARCHAR(size)
+```
+
+### Example:
+
+```sql
+CREATE TABLE students (
+    student_name VARCHAR(50)
+);
+```
+
+### Stored Values:
+
+```
+Manoj
+Rahul
+Priya
+```
+
+### Used For:
+
+* Names
+* Emails
+* Addresses
+* Descriptions
+
+---
+
+# 3. Date and Time Data Types
+
+Date and Time data types are used to store date and time values.
+
+---
+
+## 1. DATE
+
+### Definition:
+
+DATE stores only date values.
+
+### Syntax:
+
+```sql
+column_name DATE
+```
+
+### Example:
+
+```sql
+joining_date DATE
+```
+
+### Stored Value:
+
+```
+2026-08-07
+```
+
+### Used For:
+
+* Birth date
+* Joining date
+* Order date
+
+---
+
+## 2. DATETIME
+
+### Definition:
+
+DATETIME stores both date and time values.
+
+### Syntax:
+
+```sql
+column_name DATETIME
+```
+
+### Example:
+
+```sql
+created_at DATETIME
+```
+
+### Stored Value:
+
+```
+2026-08-07 10:30:00
+```
+
+### Used For:
+
+* Record creation time
+* Transaction time
+
+---
+
+## 3. TIME
+
+### Definition:
+
+TIME stores only time values.
+
+### Syntax:
+
+```sql
+column_name TIME
+```
+
+### Example:
+
+```sql
+login_time TIME
+```
+
+### Stored Value:
+
+```
+10:30:45
+```
+
+### Used For:
+
+* Login time
+* Working hours
+
+---
+
+# 4. Boolean Data Type
+
+## BOOLEAN / BOOL
+
+### Definition:
+
+BOOLEAN stores True or False values.
+
+### Syntax:
+
+```sql
+column_name BOOLEAN
+```
+
+### Example:
+
+```sql
+CREATE TABLE users (
+    is_active BOOLEAN
+);
+```
+
+### Stored Values:
+
+```
+TRUE
+FALSE
+```
+
+### Used For:
+
+* Active status
+* Login status
+* Yes/No conditions
+
+---
+
+# Complete Example Using Different Data Types
+
+```sql
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    salary DECIMAL(10,2),
+    joining_date DATE,
+    is_active BOOLEAN
+);
+```
+
+### Explanation:
+
+* `emp_id` → Stores employee ID
+* `emp_name` → Stores employee name
+* `salary` → Stores salary amount
+* `joining_date` → Stores joining date
+* `is_active` → Stores employee status
+
+---
+
+
