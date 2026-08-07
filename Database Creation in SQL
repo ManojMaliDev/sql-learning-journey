@@ -67,7 +67,7 @@ DROP DATABASE database_name;
 Example:
 DROP DATABASE company;
 
-Result:
+
 
 Database deleted permanently.
 All tables and data inside the database are removed.
