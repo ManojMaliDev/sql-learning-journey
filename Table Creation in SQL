@@ -1,0 +1,165 @@
+Table Creation in SQL
+Definition
+
+Table Creation is the process of creating a table inside a database to store data in a structured format (rows and columns).
+
+In SQL, we use the CREATE TABLE command to create a new table.
+
+Simple Definition:
+
+The CREATE TABLE command is used to create a new table with defined columns and data types.
+
+Syntax
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype
+);
+Explanation:
+table_name → Name of the table
+column → Attribute/field name
+datatype → Type of data stored in the column
+Example 1: Create Student Table
+CREATE TABLE students (
+    student_id INT,
+    student_name VARCHAR(50),
+    age INT,
+    city VARCHAR(50)
+);
+Explanation:
+Creates a table named students.
+student_id stores integer values.
+student_name stores text values.
+age stores numbers.
+city stores city names.
+Example 2: Create Employee Table
+CREATE TABLE employees (
+    emp_id INT,
+    emp_name VARCHAR(100),
+    department VARCHAR(50),
+    salary DECIMAL(10,2)
+);
+Explanation:
+
+This table stores employee information:
+
+Employee ID
+Employee Name
+Department
+Salary
+Creating Table with Primary Key
+
+A Primary Key uniquely identifies each record in a table.
+
+Example:
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    email VARCHAR(100)
+);
+Explanation:
+customer_id cannot contain duplicate values.
+Each customer has a unique ID.
+Creating Table with Constraints
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2)
+);
+Used Constraints:
+PRIMARY KEY → Unique identification
+NOT NULL → Column cannot have empty values
+Viewing Table Structure
+
+To check table structure:
+
+DESC table_name;
+
+Example:
+
+DESC students;
+Viewing Tables
+
+To display all tables in the database:
+
+SHOW TABLES;
+Important Points
+Tables are created inside a database.
+A table contains rows and columns.
+Each column must have a data type.
+Table names should be meaningful.
+Primary keys help to identify unique records.
+CREATE TABLE is a DDL command.
+Real-World Example
+
+Creating a sales table for a Data Analytics project:
+
+CREATE TABLE sales (
+    sale_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    product_name VARCHAR(100),
+    quantity INT,
+    sales_amount DECIMAL(10,2)
+);
+
+This table can store sales transaction data.
+
+Practice Questions (Beginner)
+
+Q1.Create a table named students with:
+student_id
+student_name
+age
+city
+
+Q2.Create a table named employees with:
+emp_id
+emp_name
+department
+salary
+
+Q3.Create a table named products with:
+product_id
+product_name
+price
+category
+
+
+Q4.Create a table named customers with:
+customer_id
+customer_name
+email
+phone_number
+
+Q5.Create a table named orders with:
+order_id
+customer_id
+order_date
+total_amount
+
+Q6. Create an employee table where emp_id is the Primary Key.
+
+Q7. Create a student table where student_name cannot be empty.
+
+Q8.Create a bank account table with:
+account_id
+account_holder
+account_type
+balance
+
+Q9.Create a library table with:
+
+book_id
+book_name
+author
+price
+
+Q10.  a sales_analysis table with:
+
+sale_id
+customer_id
+product_name
+category
+quantity
+sales_amount
+sale_date
