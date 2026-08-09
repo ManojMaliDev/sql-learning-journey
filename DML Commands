@@ -1,0 +1,250 @@
+Data Manipulation Language (DML)
+1. Definition —
+
+DML (Data Manipulation Language) is a part of SQL used to insert, modify, and delete data stored in database tables.
+
+DML works with the data inside the table, rather than changing the structure of the table.
+
+The commonly used DML commands are:
+
+INSERT – adds new records
+UPDATE – modifies existing records
+DELETE – removes records
+
+Some database systems also provide commands such as REPLACE and MERGE for specific purposes.
+
+2. What is DML?
+
+Imagine that we have an Employees table.
+
+Employee_ID	Name	Department	Salary
+101	Rahul	IT	50000
+102	Priya	HR	45000
+103	Amit	Sales	40000
+
+The table already exists.
+
+Now suppose we want to:
+
+Add a new employee
+Change an employee's salary
+Remove an employee
+
+We don't need to create a new table.
+
+We need to manipulate the existing data.
+
+This is where DML is used.
+
+3. DML Commands
+Command	Purpose
+INSERT	Adds new data
+UPDATE	Changes existing data
+DELETE	Removes existing data
+REPLACE	Replaces/inserts a row in supported databases such as MySQL
+MERGE	Performs insert/update logic based on matching conditions; syntax varies by database
+
+Important: DML syntax and behavior can differ between MySQL, PostgreSQL, SQL Server, and Oracle. The examples below mainly use MySQL-style SQL where applicable.
+
+4. INSERT Command
+What is INSERT?
+
+The INSERT command is used to add new records into a table.
+
+Syntax
+INSERT INTO table_name
+(column1, column2, column3)
+VALUES
+(value1, value2, value3);
+Example
+INSERT INTO Employees
+(Employee_ID, Name, Department, Salary)
+VALUES
+(104, 'Neha', 'IT', 55000);
+
+Now the table becomes:
+
+Employee_ID	Name	Department	Salary
+101	Rahul	IT	50000
+102	Priya	HR	45000
+103	Amit	Sales	40000
+104	Neha	IT	55000
+Why specify column names?
+
+Writing column names makes the query clearer and safer.
+
+INSERT INTO Employees
+(Employee_ID, Name, Department, Salary)
+VALUES
+(104, 'Neha', 'IT', 55000);
+
+is generally better than:
+
+INSERT INTO Employees
+VALUES
+(104, 'Neha', 'IT', 55000);
+
+because the first version clearly tells the database which value belongs to which column.
+
+5. INSERT Multiple Records
+
+We can insert multiple records using a single INSERT statement.
+
+Syntax
+INSERT INTO table_name
+(column1, column2, column3)
+VALUES
+(value1, value2, value3),
+(value4, value5, value6),
+(value7, value8, value9);
+Example
+INSERT INTO Employees
+(Employee_ID, Name, Department, Salary)
+VALUES
+(105, 'Kiran', 'Finance', 60000),
+(106, 'Sneha', 'IT', 58000),
+(107, 'Rohit', 'Sales', 42000);
+
+This is useful when we need to add several records at once.
+
+6. UPDATE Command
+What is UPDATE?
+
+The UPDATE command is used to modify existing records in a table.
+
+Syntax
+UPDATE table_name
+SET column_name = new_value
+WHERE condition;
+Example
+
+Suppose Rahul's salary increases from ₹50,000 to ₹60,000.
+
+UPDATE Employees
+SET Salary = 60000
+WHERE Employee_ID = 101;
+
+Only Rahul's salary will be changed.
+
+Updating Multiple Columns
+
+We can update more than one column in the same query.
+
+UPDATE Employees
+SET Department = 'Finance',
+    Salary = 65000
+WHERE Employee_ID = 101;
+
+Now both the department and salary are changed.
+
+⚠️ Important: UPDATE without WHERE
+
+Be very careful with this:
+
+UPDATE Employees
+SET Salary = 60000;
+
+Because there is no WHERE condition, all employees' salaries will be changed to 60,000.
+
+This is one of the most common mistakes beginners make.
+
+7. DELETE Command
+What is DELETE?
+
+The DELETE command is used to remove existing records from a table.
+
+Syntax
+DELETE FROM table_name
+WHERE condition;
+Example
+
+Suppose we want to remove employee 103:
+
+DELETE FROM Employees
+WHERE Employee_ID = 103;
+
+The record with Employee_ID = 103 will be deleted.
+
+⚠️ DELETE without WHERE
+DELETE FROM Employees;
+
+This removes all records from the table.
+
+The table itself remains available, but its rows are deleted.
+
+So always check your WHERE condition before executing a DELETE.
+
+8. REPLACE Command — MySQL
+
+REPLACE is a MySQL-specific command used to insert a new row or replace an existing row when a PRIMARY KEY or UNIQUE key conflict occurs.
+
+Syntax
+REPLACE INTO table_name
+(column1, column2, column3)
+VALUES
+(value1, value2, value3);
+Example
+
+Suppose Employee_ID is the primary key.
+
+REPLACE INTO Employees
+(Employee_ID, Name, Department, Salary)
+VALUES
+(101, 'Rahul', 'Finance', 70000);
+
+If employee 101 already exists and the primary key conflicts, MySQL replaces that existing row with the new row.
+
+Important: REPLACE is not the same as a normal UPDATE. It can effectively remove the old row and insert the new row, which may have implications for related data and triggers.
+
+9. MERGE Command
+
+MERGE is used to combine INSERT and UPDATE logic based on whether a matching record already exists.
+
+It is commonly associated with databases such as SQL Server and Oracle, although the exact syntax and support vary by database.
+
+For example, suppose a company receives updated employee data from another system.
+
+If the employee already exists → update the record.
+
+If the employee does not exist → insert a new record.
+
+This type of operation is commonly called an upsert.
+
+Conceptual Example
+MERGE Employee_Target AS target
+USING Employee_Source AS source
+ON target.Employee_ID = source.Employee_ID
+
+WHEN MATCHED THEN
+    UPDATE SET target.Salary = source.Salary
+
+WHEN NOT MATCHED THEN
+    INSERT (Employee_ID, Name, Salary)
+    VALUES (source.Employee_ID, source.Name, source.Salary);
+
+The exact MERGE syntax depends on the database system, so always check the documentation for the database you are using.
+
+10. DML vs DDL
+This is an important interview question.
+
+DML	                                          DDL
+Works mainly with table data                 	Works with database structure
+INSERT	                                      CREATE
+UPDATE                                      	ALTER
+DELETE                                      	DROP
+REPLACE	                                      TRUNCATE
+MERGE	                                        RENAME
+
+For example:
+
+INSERT INTO Employees ...
+
+changes the data.
+
+While:
+
+ALTER TABLE Employees ...
+
+changes the table structure.
+
+* TRUNCATE is commonly classified as DDL in many SQL systems, though exact transactional behavior is database-specific.
