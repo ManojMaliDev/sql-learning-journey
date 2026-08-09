@@ -1,0 +1,180 @@
+TCL — Transaction Control Language
+Definition:
+TCL (Transaction Control Language) is a part of SQL used to manage transactions and control changes made by DML statements.
+
+Common TCL commands include:
+COMMIT
+ROLLBACK
+SAVEPOINT
+
+TCL is especially important when multiple database operations need to be treated as one logical transaction.
+
+Q.What is a Transaction?
+A transaction is a sequence of database operations that should be treated as one unit of work.
+
+Example: Bank Transfer
+
+Suppose Rahul transfers ₹5,000 to Amit.
+
+Two operations are required:
+
+1. Deduct ₹5,000 from Rahul
+2. Add ₹5,000 to Amit
+
+Both operations should succeed together.
+
+If money is deducted from Rahul but not added to Amit, the database would become inconsistent.
+
+Transactions help manage this type of situation.
+
+1. COMMIT
+What is COMMIT?
+COMMIT permanently saves the changes made during the current transaction.
+
+Syntax:
+COMMIT;
+Example
+UPDATE Accounts
+SET Balance = Balance - 5000
+WHERE Account_ID = 101;
+
+UPDATE Accounts
+SET Balance = Balance + 5000
+WHERE Account_ID = 102;
+
+COMMIT;
+
+After COMMIT, the transaction is successfully saved according to the database's transaction rules.
+
+2. ROLLBACK
+What is ROLLBACK?
+
+ROLLBACK is used to undo changes made during the current transaction that have not been committed.
+
+Syntax:
+ROLLBACK;
+Example
+UPDATE Accounts
+SET Balance = Balance - 5000
+WHERE Account_ID = 101;
+
+UPDATE Accounts
+SET Balance = Balance + 5000
+WHERE Account_ID = 102;
+
+ROLLBACK;
+
+The uncommitted changes are rolled back.
+
+3. SAVEPOINT
+What is SAVEPOINT?
+
+SAVEPOINT creates a temporary point inside a transaction.
+
+It allows us to roll back part of the transaction without necessarily undoing the entire transaction.
+
+Syntax:
+SAVEPOINT savepoint_name;
+Example
+START TRANSACTION;
+
+UPDATE Employees
+SET Salary = 60000
+WHERE Employee_ID = 101;
+
+SAVEPOINT salary_update;
+
+UPDATE Employees
+SET Salary = 70000
+WHERE Employee_ID = 102;
+
+ROLLBACK TO SAVEPOINT salary_update;
+
+COMMIT;
+
+Here:
+
+Employee 101's salary is updated.
+A savepoint is created.
+Employee 102's salary is updated.
+We roll back to the savepoint.
+The second update is undone.
+The first update can still be committed.
+
+ROLLBACK TO SAVEPOINT syntax and savepoint behavior can vary slightly by database system.
+
+TCL Real-World Example
+Banking Transaction
+
+Suppose ₹10,000 is transferred from Account A to Account B.
+
+START TRANSACTION;
+
+UPDATE Accounts
+SET Balance = Balance - 10000
+WHERE Account_ID = 101;
+
+UPDATE Accounts
+SET Balance = Balance + 10000
+WHERE Account_ID = 102;
+
+COMMIT;
+
+If something goes wrong before the transaction is committed:
+
+ROLLBACK;
+
+can undo the uncommitted changes.
+
+
+DIFFERENCE BETWEEN DQL AND DCL AND TCL:
+
+                    DQL                                       DCL                                          TCL
+    	              
+Full Form	          Data Query Language          	Data Control Language	                  Transaction Control Language
+Main Purpose    	  Retrieve data                 Control permissions	                    Manage transactions
+Main Commands	      SELECT	                      GRANT, REVOKE	                          COMMIT, ROLLBACK, SAVEPOINT
+Mainly Used By	    Developers, Analysts        	Database Administrators/Admins	        Developers, Database Administrators
+Example	            SELECT	                      GRANT SELECT                       	    COMMIT
+
+
+Important Interview Questions
+1. What is DQL?
+
+DQL is used to retrieve data from database tables. SELECT is the primary command commonly associated with DQL.
+
+2. What is DCL?
+
+DCL controls user access and privileges on database objects. The main commands are GRANT and REVOKE.
+
+3. What is TCL?
+
+TCL manages transactions and controls whether database changes are committed or rolled back.
+
+4. Difference between COMMIT and ROLLBACK?
+
+COMMIT saves the transaction's changes, while ROLLBACK undoes uncommitted changes.
+
+5. What is SAVEPOINT?
+
+A savepoint creates a point within a transaction to which we can partially roll back.
+
+6. What is the difference between GRANT and REVOKE?
+
+GRANT gives privileges to a user or role, while REVOKE removes previously granted privileges.
+
+7. Can DCL improve database security?
+
+Yes. DCL helps control which users can perform operations on specific database objects. Giving users only the permissions they need follows the principle of least privilege.
+
+8. Why are transactions important?
+
+Transactions help keep related database operations consistent. For example, a bank transfer should not complete only one side of the transfer.
+
+9. Can we use ROLLBACK after COMMIT?
+
+Normally, no. Once a transaction has been committed, those changes are considered permanently saved and a normal ROLLBACK cannot undo them.
+
+10. Who mainly manages DCL permissions?
+
+Database administrators and authorized database/security administrators commonly manage permissions, although developers may also work with roles and privileges depending on the organization.
