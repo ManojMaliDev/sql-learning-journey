@@ -1,0 +1,97 @@
+DCL — Data Control Language
+
+Definition:
+DCL (Data Control Language) is a part of SQL used to control access and permissions on database objects.
+
+DCL is mainly used by database administrators to decide:
+
+Who can access what, and what operations they are allowed to perform?
+
+The main DCL commands are:
+GRANT
+REVOKE
+
+
+1. GRANT
+What is GRANT?
+
+GRANT is used to give specific privileges to a user or role.
+
+Syntax:
+GRANT privilege
+ON database_object
+TO user;
+
+Example
+GRANT SELECT
+ON company.Employees
+TO analyst_user;
+
+This gives analyst_user permission to retrieve data from the Employees table.
+
+Grant Multiple Privileges
+GRANT SELECT, INSERT, UPDATE
+ON company.Employees
+TO analyst_user;
+
+Now the user can:
+Read data
+Insert data
+Update data
+
+depending on the database's permission model.
+
+Grant All Privileges
+
+Some database systems support:
+
+GRANT ALL PRIVILEGES
+ON company.*
+TO admin_user;
+
+This gives broad privileges on objects within the specified database, subject to the database system's rules.
+
+Use broad privileges carefully.
+
+2. REVOKE:
+
+What is REVOKE?
+REVOKE is used to remove previously granted privileges.
+
+Syntax:
+REVOKE privilege
+ON database_object
+FROM user;
+Example
+REVOKE UPDATE
+ON company.Employees
+FROM analyst_user;
+
+Now the user no longer has the UPDATE privilege on that object.
+
+Real-World Example
+Imagine a company has three users:
+
+Admin
+   ↓
+Full database access
+
+Data Analyst
+   ↓
+SELECT access
+
+Intern
+   ↓
+Limited access
+
+The analyst may only need to read data.
+
+Query:
+
+GRANT SELECT
+ON company.Sales
+TO analyst_user;
+
+There is no need to give the analyst permission to delete the company's sales data.
+
+This is an example of least privilege.
