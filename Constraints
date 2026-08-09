@@ -1,0 +1,407 @@
+Constraints
+Definition:
+
+Constraints are rules applied to columns in a database table to control the type of data that can be stored and to maintain data accuracy, consistency, and integrity.
+
+Constraints prevent invalid or unwanted data from being inserted into a table.
+
+For example, if an Employee_ID must be unique, we can use a PRIMARY KEY constraint to prevent duplicate employee IDs.
+
+2. What are Constraints?
+
+When we create a database, we do not want users to enter any type of data without restrictions.
+
+For example, consider an employee table:
+
+Employee_ID	Name	Age	Email	Salary
+101	Rahul	22	rahul@gmail.com	50000
+
+Now imagine someone tries to insert:
+
+An employee without an ID
+The same ID for two employees
+A negative salary
+An empty employee name
+An invalid value
+
+This can make the database unreliable.
+
+Constraints are used to prevent such problems.
+
+They act like rules for the data.
+
+3. Why do we use Constraints?
+
+Constraints help us to:
+
+Maintain data accuracy
+Prevent invalid data
+Prevent duplicate data
+Maintain relationships between tables
+Maintain data integrity
+Provide default values
+Control what users can insert or update
+4. Types of SQL Constraints
+
+The commonly used constraints are:
+
+Constraint	Purpose
+PRIMARY KEY	Uniquely identifies each row
+FOREIGN KEY	Creates a relationship between tables
+UNIQUE	Prevents duplicate values
+NOT NULL	Prevents NULL values
+CHECK	Allows only values satisfying a condition
+DEFAULT	Provides a default value
+5. PRIMARY KEY
+What is PRIMARY KEY?
+
+A PRIMARY KEY is a column or combination of columns that uniquely identifies each row in a table.
+
+A primary key:
+
+Cannot contain duplicate values
+Cannot contain NULL
+Identifies each record uniquely
+Syntax
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
+Example
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
+
+Now this is valid:
+
+INSERT INTO Employees
+VALUES (101, 'Rahul', 50000);
+
+But this is not valid if 101 already exists:
+
+INSERT INTO Employees
+VALUES (101, 'Amit', 60000);
+
+because two employees cannot have the same primary key.
+
+6. FOREIGN KEY
+What is FOREIGN KEY?
+
+A FOREIGN KEY is a column that creates a relationship between two tables.
+
+It usually refers to the primary key of another table.
+
+For example, we have:
+
+Departments
+Department_ID	Department_Name
+1	IT
+2	HR
+3	Finance
+Employees
+Employee_ID	Name	Department_ID
+101	Rahul	1
+102	Priya	2
+
+Here, Employees.Department_ID can reference Departments.Department_ID.
+
+Syntax
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Department_ID INT,
+    
+    FOREIGN KEY (Department_ID)
+    REFERENCES Departments(Department_ID)
+);
+Example
+INSERT INTO Employees
+(Employee_ID, Name, Department_ID)
+VALUES
+(101, 'Rahul', 1);
+
+This is valid because department 1 exists.
+
+But:
+
+INSERT INTO Employees
+(Employee_ID, Name, Department_ID)
+VALUES
+(102, 'Amit', 10);
+
+may fail because department 10 does not exist in the parent table, subject to the database's foreign-key rules.
+
+7. UNIQUE
+What is UNIQUE?
+
+The UNIQUE constraint ensures that values in a column are not duplicated.
+
+For example, every employee can have a different email address.
+
+Syntax
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Email VARCHAR(100) UNIQUE
+);
+Example
+INSERT INTO Employees
+VALUES (101, 'rahul@gmail.com');
+
+This is valid.
+
+But if we try:
+
+INSERT INTO Employees
+VALUES (102, 'rahul@gmail.com');
+
+the database will normally reject it because the email already exists.
+
+PRIMARY KEY vs UNIQUE
+PRIMARY KEY	UNIQUE
+Uniquely identifies a row	Prevents duplicate values
+Cannot contain NULL	NULL behavior can vary by database
+Normally one primary key constraint per table	Multiple UNIQUE constraints can be defined
+8. NOT NULL
+What is NOT NULL?
+
+The NOT NULL constraint ensures that a column must have a value.
+
+It prevents NULL from being stored in that column.
+
+Syntax
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL
+);
+Example:
+
+This is valid:
+
+INSERT INTO Employees
+(Employee_ID, Name)
+VALUES
+(101, 'Rahul');
+
+But this will fail:
+
+INSERT INTO Employees
+(Employee_ID, Name)
+VALUES
+(102, NULL);
+
+because Name is defined as NOT NULL.
+
+9. CHECK
+What is CHECK?
+
+The CHECK constraint allows us to define a condition that data must satisfy.
+
+For example, an employee's salary should not be negative.
+
+Syntax
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary DECIMAL(10,2),
+    CHECK (Salary >= 0)
+);
+Example:
+
+Valid:
+
+INSERT INTO Employees
+VALUES (101, 'Rahul', 50000);
+
+Invalid:
+
+INSERT INTO Employees
+VALUES (102, 'Amit', -5000);
+
+The second record violates the CHECK condition.
+
+The exact enforcement of CHECK constraints depends on the database version/system, but modern MySQL versions enforce them.
+
+10. DEFAULT
+What is DEFAULT?
+
+The DEFAULT constraint automatically provides a value when the user does not provide one.
+
+Syntax:
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Department VARCHAR(50) DEFAULT 'IT'
+);
+Example
+INSERT INTO Employees
+(Employee_ID, Name)
+VALUES
+(101, 'Rahul');
+
+We did not provide a department.
+
+The database can automatically use:
+
+IT
+
+So the record becomes:
+
+Employee_ID	Name	Department
+101	Rahul	IT
+11. Combining Multiple Constraints
+
+In real projects, we normally use several constraints together.
+
+Example
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Age INT CHECK (Age >= 18),
+    Salary DECIMAL(10,2) CHECK (Salary >= 0),
+    Department VARCHAR(50) DEFAULT 'IT'
+);
+
+Here:
+
+PRIMARY KEY → Employee ID must be unique
+NOT NULL → Name is required
+UNIQUE → Email cannot be duplicated
+CHECK → Age must be 18 or above
+CHECK → Salary cannot be negative
+DEFAULT → Department becomes IT if no department is provided
+12. Column-Level vs Table-Level Constraints
+
+Constraints can be written directly with a column or separately at the table level.
+
+Column-Level
+CREATE TABLE Employees (
+    Employee_ID INT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL
+);
+Table-Level
+CREATE TABLE Employees (
+    Employee_ID INT,
+    Name VARCHAR(50),
+    CONSTRAINT pk_employee
+        PRIMARY KEY (Employee_ID)
+);
+
+Table-level constraints are especially useful for constraints involving multiple columns, such as composite keys.
+
+13. Real-World Example — E-Commerce
+
+Suppose we are creating a Customers table.
+
+CREATE TABLE Customers (
+    Customer_ID INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Age INT CHECK (Age >= 18),
+    Country VARCHAR(50) DEFAULT 'India'
+);
+
+This table ensures that:
+
+Every customer has a unique ID.
+Customer name cannot be empty.
+Two customers cannot use the same email.
+Customer age must be at least 18.
+If country is not provided, India is used.
+
+This is how constraints help maintain data quality in real-world databases.
+
+14. Important Interview Questions
+Q1. What are SQL constraints?
+Answer:
+SQL constraints are rules applied to table columns to control the data that can be stored in a database. They help maintain accuracy, consistency, and integrity. Common constraints include PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CHECK, and DEFAULT.
+
+Q2. What is the difference between PRIMARY KEY and UNIQUE?
+Answer:
+Both are used to prevent duplicate values, but they have different purposes.
+
+A PRIMARY KEY uniquely identifies each record in a table and cannot contain NULL. A table normally has one primary key constraint.
+
+A UNIQUE constraint ensures that values in a column or group of columns are unique. A table can have multiple unique constraints. The handling of NULL values in a unique constraint depends on the database system.
+
+Q3. What is a FOREIGN KEY?
+
+Answer:
+A foreign key is a column or set of columns that references a key in another table, usually the primary key. It is used to establish a relationship between tables and helps maintain referential integrity.
+
+For example, if Departments.Department_ID is the primary key, Employees.Department_ID can be a foreign key referencing it.
+
+Q4. Can a table have multiple UNIQUE constraints?
+
+Answer:
+Yes. A table can have multiple UNIQUE constraints.
+
+For example, an employee table can have a unique constraint on both Email and Phone_Number if the business requires both values to be unique.
+
+Q5. Can a PRIMARY KEY contain NULL?
+
+Answer:
+No. A primary key cannot contain NULL because its purpose is to uniquely identify every row in a table. Every record must therefore have a valid primary-key value.
+
+Q6. Why do we use NOT NULL?
+
+Answer:
+NOT NULL is used when a column must always contain a value. It prevents missing values from being inserted into that column.
+
+For example, if every employee must have a name, we can define:
+
+Name VARCHAR(50) NOT NULL
+
+This prevents an employee record from being created without a name.
+
+Q7. What is the purpose of CHECK?
+
+Answer:
+CHECK is used to restrict values based on a condition.
+
+For example:
+
+CHECK (Salary >= 0)
+
+ensures that negative salary values are not accepted.
+
+This helps protect the database from invalid data.
+
+Q8. What is DEFAULT?
+
+Answer:
+DEFAULT provides a predefined value when a value is not supplied during insertion.
+
+For example:
+
+Country VARCHAR(50) DEFAULT 'India'
+
+If the user does not provide a country, the database can use India automatically.
+
+Q9. Can we create a FOREIGN KEY without a PRIMARY KEY?
+
+Answer:
+A foreign key references a candidate/unique key in the parent table depending on the database system's rules. In the common design, it references the parent table's primary key. The referenced column must satisfy the database's requirements for being a referenced key.
+
+Q10. Why are constraints important in database design?
+
+Answer:
+Constraints are important because they prevent invalid and inconsistent data from entering the database. They help maintain entity integrity, referential integrity, uniqueness, required values, and valid ranges. This makes the database more reliable and reduces data-quality problems in applications and reports.
+
+
+
+
+
+
+
+PRIMARY KEY → Who is this record?
+FOREIGN KEY → Which table is it connected to?
+UNIQUE → Is this value duplicated?
+NOT NULL → Is this value required?
+CHECK → Is this value valid?
+DEFAULT → What value should be used if nothing is provided?
+
+
