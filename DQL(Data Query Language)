@@ -1,0 +1,122 @@
+DQL — Data Query Language
+Definition
+
+DQL (Data Query Language) is a part of SQL used to retrieve or query data from one or more database tables.
+
+The main DQL command is:
+
+SELECT
+
+Note: Some SQL references classify SELECT simply as a SQL query statement rather than a separate DQL category. In beginner courses, it is commonly taught under DQL.
+
+Why do we use DQL?
+
+Suppose a company has thousands of employee records.
+We may want to find:
+
+All employees
+Employees from IT department
+Employees earning more than ₹50,000
+Highest salary
+Average salary
+Employees from Pune
+
+Instead of manually checking the table, we can use SQL queries to retrieve exactly the required data.
+
+SELECT: The SELECT statement is used to retrieve data from a table.
+
+Syntax:
+SELECT column1, column2
+FROM table_name;
+Example
+SELECT Name, Salary
+FROM Employees;
+
+This returns the Name and Salary columns from the Employees table.
+
+SELECT All Columns
+SELECT *
+FROM Employees;
+
+* means all columns.
+
+Example.,
+If the table contains:
+
+Employee_ID	Name	Department	Salary
+101	Rahul	IT	50000
+102	Priya	HR	45000
+103	Amit	Sales	60000
+
+Query:
+SELECT *
+FROM Employees;
+
+returns all three columns and all records.
+
+1. SELECT with WHERE
+
+We can filter the records using WHERE.
+
+Syntax
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+Example
+SELECT Name, Salary
+FROM Employees
+WHERE Salary > 50000;
+
+This returns employees whose salary is greater than 50,000.
+
+2. SELECT with ORDER BY
+
+We can sort the result.
+
+SELECT Name, Salary
+FROM Employees
+ORDER BY Salary DESC;
+
+DESC → Highest to lowest
+
+ASC → Lowest to highest
+
+3. SELECT with DISTINCT
+
+DISTINCT removes duplicate values from the result.
+
+SELECT DISTINCT Department
+FROM Employees;
+
+If the table contains:
+
+IT
+HR
+IT
+Sales
+HR
+
+the result will be:
+
+IT
+HR
+Sales
+
+4. SELECT with LIMIT — MySQL
+LIMIT is used to restrict the number of rows returned.
+
+SELECT *
+FROM Employees
+LIMIT 5;
+
+This returns the first 5 records.
+
+DQL Example — Real World
+
+An e-commerce company wants to find products costing more than ₹1,000.
+
+SELECT Product_Name, Price
+FROM Products
+WHERE Price > 1000;
+
+The database returns only products that satisfy the condition.
