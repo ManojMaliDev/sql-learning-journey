@@ -1,0 +1,174 @@
+1. SQL Clauses
+What is a Clause?
+
+A Clause is a part of an SQL statement that is used to perform a specific operation on data, such as filtering, grouping, sorting, or limiting records.
+
+              Common SQL Clauses
+
+Clause	                          Purpose
+WHERE                  	  Filters rows based on a condition
+GROUP                     BY	Groups rows with the same values
+HAVING                  	Filters groups after GROUP BY
+ORDER BY	                Sorts the result
+LIMIT	                    Limits the number of rows returned
+DISTINCT                	Removes duplicate values
+
+1. WHERE Clause
+Definition
+
+The WHERE clause is used to filter individual rows based on a specified condition.
+
+Syntax:
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+Example
+SELECT *
+FROM employees
+WHERE salary > 50000;
+
+Result: Returns employees whose salary is greater than 50,000.
+
+2. GROUP BY Clause:
+Definition:
+
+The GROUP BY clause is used to group rows having the same values into summary groups.
+
+It is commonly used with aggregate functions such as:
+
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+
+
+Syntax:
+SELECT column_name, AGGREGATE_FUNCTION(column_name)
+FROM table_name
+GROUP BY column_name;
+Example
+SELECT department, COUNT(*) AS total_employees
+FROM employees
+GROUP BY department;
+
+Result: Returns the number of employees in each department.
+
+3. HAVING Clause:
+Definition:
+
+The HAVING clause is used to filter groups created by the GROUP BY clause.
+
+Syntax:
+SELECT column_name, AGGREGATE_FUNCTION(column_name)
+FROM table_name
+GROUP BY column_name
+HAVING condition;
+
+
+Example:
+SELECT department, COUNT(*) AS total_employees
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 5;
+
+Result: Returns only departments having more than 5 employees.
+
+              WHERE vs HAVING
+
+WHERE                                                          	HAVING
+
+Filters individual rows	                                  Filters groups
+Used before grouping	                                    Used after grouping
+Generally used without aggregate conditions	              Commonly used with aggregate functions
+
+
+4. ORDER BY Clause:
+Definition:
+
+The ORDER BY clause is used to sort the result set in ascending or descending order.
+
+Syntax:
+SELECT column1, column2
+FROM table_name
+ORDER BY column_name ASC;
+Example
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+
+Result: Employees are displayed from highest salary to lowest salary.
+
+Sorting Options
+ASC   -- Ascending order
+DESC  -- Descending order
+
+
+5. LIMIT Clause:
+Definition:
+
+The LIMIT clause is used to restrict the number of rows returned by a query.
+
+Syntax:
+
+SELECT *
+FROM table_name
+LIMIT number;
+Example
+SELECT *
+FROM employees
+LIMIT 5;
+
+Result: Returns only the first 5 rows.
+
+Example with ORDER BY
+SELECT *
+FROM employees
+ORDER BY salary DESC
+LIMIT 5;
+
+Result: Returns the top 5 highest-paid employees.
+
+6. DISTINCT:
+Definition:
+
+DISTINCT is used to remove duplicate values from the result.
+
+Syntax:
+SELECT DISTINCT column_name
+FROM table_name;
+Example
+SELECT DISTINCT department
+FROM employees;
+
+Result: Returns each department only once.
+
+
+⭐ SQL Clause Execution Order
+
+The logical processing order is:
+FROM
+ ↓
+WHERE
+ ↓
+GROUP BY
+ ↓
+HAVING
+ ↓
+SELECT
+ ↓
+DISTINCT
+ ↓
+ORDER BY
+ ↓
+LIMIT
+
+
+Quick Revision
+WHERE    → Filter Rows
+GROUP BY → Create Groups
+HAVING   → Filter Groups
+ORDER BY → Sort Results
+LIMIT    → Limit Rows
+DISTINCT → Remove Duplicates
+
