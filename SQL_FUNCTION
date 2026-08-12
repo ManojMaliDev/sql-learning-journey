@@ -1,0 +1,310 @@
+
+
+
+SQL Functions
+│
+├── 1. Built-in Functions
+│   │
+│   ├── A. Aggregate Functions
+│   │   ├── COUNT()
+│   │   ├── SUM()
+│   │   ├── AVG()
+│   │   ├── MAX()
+│   │   └── MIN()
+│   │
+│   ├── B. String Functions
+│   │   ├── UPPER()
+│   │   ├── LOWER()
+│   │   ├── LENGTH()
+│   │   ├── SUBSTRING()
+│   │   ├── CONCAT()
+│   │   ├── TRIM()
+│   │   └── REPLACE()
+│   │
+│   ├── C. Numeric / Mathematical Functions
+│   │   ├── ROUND()
+│   │   ├── CEIL()
+│   │   ├── FLOOR()
+│   │   ├── MOD()
+│   │   └── ABS()
+│   │
+│   ├── D. Date & Time Functions
+│   │   ├── NOW()
+│   │   ├── CURDATE()
+│   │   ├── CURRENT_DATE
+│   │   ├── CURRENT_TIMESTAMP
+│   │   ├── DATE_FORMAT()
+│   │   └── DATEDIFF()
+│   │
+│   ├── E. NULL / Conditional Functions
+│   │   ├── COALESCE()
+│   │   ├── NULLIF()
+│   │   └── IF()
+│   │
+│   ├── F. Conversion Functions
+│   │   ├── CAST()
+│   │   └── CONVERT()
+│   │
+│   └── G. Other / Advanced Functions
+│       ├── JSON Functions
+│       ├── Window Functions
+│       └── Regular Expression Functions
+│
+└── 2. User-Defined Functions (UDF)
+    │
+    ├── A. Scalar Functions
+    │
+    ├── B. Table-Valued Functions
+    │
+    └── C. Aggregate User-Defined Functions
+
+1. Built-in Functions
+Definition
+
+Built-in functions are predefined functions provided by the database management system to perform commonly required operations on data.
+
+We do not need to create these functions ourselves.
+
+For example:
+
+SELECT UPPER('manoj');
+
+The database already provides UPPER().
+
+A. Aggregate Functions
+
+Aggregate functions perform calculations on multiple rows and normally return a single result for each group.
+
+Functions
+COUNT()
+SUM()
+AVG()
+MAX()
+MIN()
+Example
+SELECT AVG(Salary)
+FROM Employees;
+
+This returns the average salary of employees.
+
+B. String Functions
+
+String functions are used to work with text/string data.
+
+Functions
+UPPER()
+LOWER()
+LENGTH()
+SUBSTRING()
+CONCAT()
+TRIM()
+REPLACE()
+Example
+SELECT UPPER(Name)
+FROM Employees;
+
+If the name is:
+
+Rahul
+
+Result:
+
+RAHUL
+C. Numeric / Mathematical Functions
+
+These functions are used to perform mathematical operations.
+
+Functions
+ROUND()
+CEIL()
+FLOOR()
+MOD()
+ABS()
+Example
+SELECT ROUND(125.678, 2);
+
+Result:
+
+125.68
+D. Date & Time Functions
+
+These functions are used to work with dates and time.
+
+Functions
+NOW()
+CURDATE()
+CURRENT_DATE
+CURRENT_TIMESTAMP
+DATE_FORMAT()
+DATEDIFF()
+Example
+SELECT CURDATE();
+
+Returns the current date.
+
+E. NULL / Conditional Functions
+
+These functions are useful when working with missing values and conditions.
+
+Functions
+COALESCE()
+NULLIF()
+IF()
+Example
+SELECT COALESCE(Salary, 0)
+FROM Employees;
+
+If Salary is NULL, the result becomes 0.
+
+F. Conversion Functions
+
+Conversion functions are used to convert data from one data type to another.
+
+Functions
+CAST()
+CONVERT()
+Example
+SELECT CAST('100' AS UNSIGNED);
+
+This converts the string '100' into a numeric value.
+
+Note: Exact conversion syntax can differ between MySQL, SQL Server, Oracle, and PostgreSQL.
+
+G. Advanced / Specialized Functions
+
+Modern databases provide many additional built-in functions.
+
+Examples include:
+
+JSON Functions
+
+Used to work with JSON data.
+
+JSON_EXTRACT()
+JSON_OBJECT()
+JSON_ARRAY()
+Regular Expression Functions
+
+Used for advanced text pattern matching.
+
+REGEXP_LIKE()
+REGEXP_REPLACE()
+Window Functions
+
+Used for analytical calculations across related rows.
+
+Examples:
+
+ROW_NUMBER()
+RANK()
+DENSE_RANK()
+LEAD()
+LAG()
+
+Window functions should be studied separately in your Window Functions module, even though they are technically functions.
+
+2. User-Defined Functions (UDF)
+Definition
+
+User-Defined Functions are functions created by the database developer or user to perform a specific operation that is not directly available through existing built-in functions.
+
+Instead of repeatedly writing the same logic, we can create our own function and reuse it.
+
+Types of User-Defined Functions
+User-Defined Functions
+│
+├── 1. Scalar Function
+│
+├── 2. Table-Valued Function
+│
+└── 3. Aggregate User-Defined Function
+
+However, the exact types and support depend on the database system.
+
+A. Scalar User-Defined Function
+
+A scalar function returns one value.
+
+For example, suppose we want to calculate annual salary from monthly salary.
+
+Conceptually:
+
+Monthly Salary → Function → Annual Salary
+
+Example:
+
+SELECT calculate_annual_salary(50000);
+
+Result:
+
+600000
+
+The exact syntax for creating such a function depends on the database.
+
+B. Table-Valued Function
+
+A table-valued function returns a table-like result instead of a single value.
+
+This concept is especially common in SQL Server and some other database systems.
+
+Conceptually:
+
+Input
+  ↓
+Function
+  ↓
+Table Result
+
+Example idea:
+
+SELECT *
+FROM get_employees_by_department('IT');
+
+The function can return multiple employee records.
+
+C. Aggregate User-Defined Function
+
+An aggregate user-defined function performs a calculation across multiple rows.
+
+Conceptually:
+
+Multiple Rows
+     ↓
+Custom Function
+     ↓
+Single Result
+
+This is an advanced database programming concept, and support varies significantly between database systems.
+
+🔥 Built-in vs User-Defined Functions
+Feature	Built-in Function	User-Defined Function
+Created by	Database system	Developer/User
+Already available	Yes	No
+Need to create	No	Yes
+Purpose	Common operations	Custom business logic
+Example	SUM()	calculate_bonus()
+Reusable	Yes	Yes
+Database dependent	Yes	Yes
+🎯 Easy Way to Remember
+
+Examples:
+COUNT()
+SUM()
+AVG()
+UPPER()
+LOWER()
+ROUND()
+NOW()
+COALESCE()
+CAST()
+USER-DEFINED
+Developer self created
+
+Examples:
+calculate_bonus()
+calculate_tax()
+calculate_annual_salary()
+📌 Important Point for Your Notes
+
+
+
