@@ -1,0 +1,414 @@
+Topic: SQL Operators
+1. Definition :
+SQL Operators are special symbols or keywords used to perform operations on data and to compare, combine, or manipulate values in SQL queries.
+Operators are commonly used with WHERE, SELECT, HAVING, UPDATE, and other SQL statements.
+
+Simple Example:
+SELECT *
+FROM Employees
+WHERE Salary > 50000;
+
+> is an operator used to compare salary values.
+
+2. Why do we use SQL Operators?
+
+Operators help us answer questions such as:
+
+Which employees earn more than ₹50,000?
+Which employees are from IT or HR?
+Which employees have salaries between ₹40,000 and ₹60,000?
+Which employees are not from the Sales department?
+Which products have a price greater than ₹1,000?
+
+Without operators, it would be difficult to filter and work with data.
+
+3. Types of SQL Operators
+
+The main types are:
+
+Type	Purpose	Examples
+Arithmetic Operators	Perform mathematical calculations	+, -, *, /, %
+Comparison Operators	Compare two values	=, >, <, >=, <=, <>
+Logical Operators	Combine conditions	AND, OR, NOT
+Assignment Operators	Assign values	=
+Bitwise Operators	Work with binary values	&, `
+Special Operators	Perform specific comparisons/searches	IN, BETWEEN, LIKE, IS NULL, EXISTS
+
+Operator availability and exact behavior can vary between MySQL, PostgreSQL, SQL Server, Oracle, etc. The examples below mainly use common SQL/MySQL syntax.
+
+4. Arithmetic Operators
+
+Arithmetic operators are used to perform mathematical calculations.
+
+Operator	Meaning
++	Addition
+-	Subtraction
+*	Multiplication
+/	Division
+%	Modulus / Remainder
+4.1 Addition +
+Syntax
+SELECT value1 + value2;
+Example
+SELECT 100 + 50 AS Total;
+
+Output:
+
+Total
+150
+Real-world Example
+
+Suppose an employee receives a ₹5,000 bonus.
+
+SELECT Salary + 5000 AS New_Salary
+FROM Employees;
+5. Subtraction -
+Syntax
+SELECT value1 - value2;
+Example
+SELECT 1000 - 250 AS Remaining;
+
+Output:
+
+750
+Real-world Example
+SELECT Salary - 2000 AS Salary_After_Deduction
+FROM Employees;
+6. Multiplication *
+Syntax
+SELECT value1 * value2;
+Example
+SELECT 500 * 12 AS Annual_Value;
+
+Output:
+
+6000
+Real-world Example
+
+If an employee's monthly salary is stored:
+
+SELECT Salary * 12 AS Annual_Salary
+FROM Employees;
+7. Division /
+Syntax
+SELECT value1 / value2;
+Example
+SELECT 1000 / 4 AS Result;
+
+Output:
+
+250
+Real-world Example
+SELECT Salary / 12 AS Monthly_Value
+FROM Employees;
+
+Be careful with division by zero. value / 0 is invalid and behavior may vary by database.
+
+8. Modulus %
+
+The % operator returns the remainder after division in systems such as MySQL and SQL Server.
+
+Syntax
+SELECT value1 % value2;
+Example
+SELECT 17 % 5 AS Remainder;
+
+Output:
+
+2
+
+Because:
+
+17 ÷ 5 = 3 remainder 2
+Real-world Example
+
+Find employees whose ID is even:
+
+SELECT *
+FROM Employees
+WHERE Employee_ID % 2 = 0;
+9. Comparison Operators
+
+Comparison operators are used to compare two values.
+
+Operator	Meaning
+=	Equal to
+>	Greater than
+<	Less than
+>=	Greater than or equal to
+<=	Less than or equal to
+<>	Not equal to
+!=	Not equal to in commonly supported systems
+9.1 Equal To =
+Syntax
+SELECT *
+FROM table_name
+WHERE column = value;
+Example
+SELECT *
+FROM Employees
+WHERE Department = 'IT';
+
+This returns employees whose department is IT.
+
+10. Greater Than >
+SELECT *
+FROM Employees
+WHERE Salary > 50000;
+
+Returns employees earning more than ₹50,000.
+
+11. Less Than <
+SELECT *
+FROM Employees
+WHERE Salary < 50000;
+
+Returns employees earning less than ₹50,000.
+
+12. Greater Than or Equal To >=
+SELECT *
+FROM Employees
+WHERE Salary >= 50000;
+
+Returns employees earning ₹50,000 or more.
+
+13. Less Than or Equal To <=
+SELECT *
+FROM Employees
+WHERE Salary <= 50000;
+
+Returns employees earning ₹50,000 or less.
+
+14. Not Equal <>
+SELECT *
+FROM Employees
+WHERE Department <> 'IT';
+
+Returns employees who are not in the IT department.
+
+!= is also supported by many SQL databases:
+
+SELECT *
+FROM Employees
+WHERE Department != 'IT';
+
+For portable SQL, <> is the standard not-equal operator.
+
+15. Logical Operators
+
+Logical operators are used to combine multiple conditions.
+
+Main logical operators:
+
+AND
+OR
+NOT
+16. AND Operator
+
+AND returns records only when all conditions are true.
+
+Syntax
+SELECT *
+FROM table_name
+WHERE condition1
+AND condition2;
+Example
+SELECT *
+FROM Employees
+WHERE Department = 'IT'
+AND Salary > 50000;
+
+This means:
+
+Department must be IT AND salary must be greater than 50,000.
+
+Both conditions must be satisfied.
+
+17. OR Operator
+
+OR returns records when at least one condition is true.
+
+Syntax
+SELECT *
+FROM table_name
+WHERE condition1
+OR condition2;
+Example
+SELECT *
+FROM Employees
+WHERE Department = 'IT'
+OR Department = 'HR';
+
+This returns employees from either IT or HR.
+
+18. NOT Operator
+
+NOT reverses a condition.
+
+Syntax
+SELECT *
+FROM table_name
+WHERE NOT condition;
+Example
+SELECT *
+FROM Employees
+WHERE NOT Department = 'IT';
+
+This returns employees who are not in IT.
+
+You will also commonly see:
+
+WHERE Department <> 'IT'
+19. Operator Precedence
+
+When multiple operators are used in one query, SQL follows an order of evaluation.
+
+For conditions, it is important to understand:
+
+()
+NOT
+AND
+OR
+Example
+SELECT *
+FROM Employees
+WHERE Department = 'IT'
+OR Department = 'HR'
+AND Salary > 50000;
+
+AND is evaluated before OR.
+
+To make the intended logic clear, use parentheses:
+
+SELECT *
+FROM Employees
+WHERE
+    (Department = 'IT' OR Department = 'HR')
+    AND Salary > 50000;
+
+This is much easier to understand and reduces logical mistakes.
+
+20. Special SQL Operators
+
+Some SQL operators are specifically designed for filtering and searching data.
+
+Important ones include:
+
+IN
+NOT IN
+BETWEEN
+LIKE
+IS NULL
+IS NOT NULL
+EXISTS
+
+These will be studied in detail in the Filtering module.
+
+21. IN Operator
+
+IN checks whether a value exists in a list of values.
+
+Syntax
+SELECT *
+FROM table_name
+WHERE column_name IN (value1, value2, value3);
+Example
+SELECT *
+FROM Employees
+WHERE Department IN ('IT', 'HR', 'Finance');
+
+Instead of writing:
+
+WHERE Department = 'IT'
+OR Department = 'HR'
+OR Department = 'Finance'
+
+we can use IN.
+
+22. BETWEEN Operator
+
+BETWEEN checks whether a value falls within a range.
+
+Syntax
+SELECT *
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+Example
+SELECT *
+FROM Employees
+WHERE Salary BETWEEN 40000 AND 60000;
+
+This checks salaries from 40,000 through 60,000.
+
+23. LIKE Operator
+
+LIKE is used for pattern matching.
+
+Example
+
+Find employees whose names start with A:
+
+SELECT *
+FROM Employees
+WHERE Name LIKE 'A%';
+
+Here % represents zero or more characters.
+
+24. IS NULL
+
+NULL means a value is missing or unknown.
+
+We should not use:
+
+WHERE Email = NULL
+
+Instead, use:
+
+SELECT *
+FROM Employees
+WHERE Email IS NULL;
+25. IS NOT NULL
+
+To find records where a value exists:
+
+SELECT *
+FROM Employees
+WHERE Email IS NOT NULL;
+26. EXISTS
+
+EXISTS checks whether a subquery returns at least one row.
+
+Example
+SELECT *
+FROM Employees e
+WHERE EXISTS (
+    SELECT 1
+    FROM Departments d
+    WHERE d.Department_ID = e.Department_ID
+);
+
+This returns employees for whom a matching department exists.
+
+EXISTS is especially useful with subqueries and will be covered in more detail later.
+
+27. Real-World Example
+
+Suppose an e-commerce company wants to find products:
+
+costing more than ₹1,000
+belonging to Electronics
+and currently in stock
+SELECT Product_Name, Price
+FROM Products
+WHERE Category = 'Electronics'
+AND Price > 1000
+AND Stock > 0;
+
+Here we use:
+
+=   → Compare category
+>   → Compare price
+>   → Compare stock
+AND → Combine conditions
+
+This is a practical example of using multiple SQL operators together.
