@@ -1,46 +1,81 @@
-DQL — Data Query Language
-Definition
+# 📘 DQL — Data Query Language
 
-DQL (Data Query Language) is a part of SQL used to retrieve or query data from one or more database tables.
+## 1. What is DQL?
 
-The main DQL command is:
+DQL stands for **Data Query Language**.
 
+DQL is a part of SQL that is used to **retrieve or query data from database tables**.
+
+In simple words, DQL helps us to ask questions to a database and get the required data as a result.
+
+The main command commonly associated with DQL is:
+```sql
 SELECT
 
-Note: Some SQL references classify SELECT simply as a SQL query statement rather than a separate DQL category. In beginner courses, it is commonly taught under DQL.
 
-Why do we use DQL?
+
+Exam Definition
+
+DQL (Data Query Language) is a part of SQL used to retrieve and query data from one or more tables in a database.
+
+2. Why Do We Use DQL?
 
 Suppose a company has thousands of employee records.
+
 We may want to find:
 
 All employees
-Employees from IT department
+Employee names and salaries
+Employees from the IT department
 Employees earning more than ₹50,000
-Highest salary
-Average salary
-Employees from Pune
+Employees with the highest salary
+Unique departments
+Top 5 employees
 
-Instead of manually checking the table, we can use SQL queries to retrieve exactly the required data.
+Instead of manually checking thousands of records, we can use SQL queries to retrieve the required information.
 
-SELECT: The SELECT statement is used to retrieve data from a table.
+3. Main DQL Command
 
-Syntax:
+The main command used to retrieve data is:
+
+SELECT
+
+The SELECT statement can be combined with different SQL clauses such as:
+
+FROM
+WHERE
+ORDER BY
+GROUP BY
+HAVING
+LIMIT
+OFFSET
+4. SELECT Statement
+
+The SELECT statement is used to retrieve data from a table.
+
+Syntax
 SELECT column1, column2
 FROM table_name;
 Example
 SELECT Name, Salary
 FROM Employees;
+Explanation
 
-This returns the Name and Salary columns from the Employees table.
+This query retrieves the Name and Salary columns from the Employees table.
 
-SELECT All Columns
+5. SELECT All Columns
+
+We can use * to retrieve all columns from a table.
+
+Syntax
+SELECT *
+FROM table_name;
+Example
 SELECT *
 FROM Employees;
 
-* means all columns.
+Here, * means all columns.
 
-Example.,
 If the table contains:
 
 Employee_ID	Name	Department	Salary
@@ -48,15 +83,16 @@ Employee_ID	Name	Department	Salary
 102	Priya	HR	45000
 103	Amit	Sales	60000
 
-Query:
+The query:
+
 SELECT *
 FROM Employees;
 
-returns all three columns and all records.
+returns all columns and all records.
 
-1. SELECT with WHERE
+6. SELECT with WHERE
 
-We can filter the records using WHERE.
+The WHERE clause is used to filter records based on a condition.
 
 Syntax
 SELECT column1, column2
@@ -67,56 +103,257 @@ SELECT Name, Salary
 FROM Employees
 WHERE Salary > 50000;
 
-This returns employees whose salary is greater than 50,000.
+This query returns employees whose salary is greater than ₹50,000.
 
-2. SELECT with ORDER BY
+7. SELECT with DISTINCT
 
-We can sort the result.
+The DISTINCT keyword is used to remove duplicate values from the result.
 
+Syntax
+SELECT DISTINCT column_name
+FROM table_name;
+Example
+SELECT DISTINCT Department
+FROM Employees;
+
+If the department values are:
+
+IT
+HR
+IT
+Sales
+HR
+
+The result will be:
+
+IT
+HR
+Sales
+8. SELECT with ORDER BY
+
+The ORDER BY clause is used to sort the result.
+
+Syntax
+SELECT column1, column2
+FROM table_name
+ORDER BY column_name ASC;
+Example
+SELECT Name, Salary
+FROM Employees
+ORDER BY Salary ASC;
+
+This displays employees from the lowest salary to the highest salary.
+
+Descending Order
 SELECT Name, Salary
 FROM Employees
 ORDER BY Salary DESC;
 
-DESC → Highest to lowest
+This displays employees from the highest salary to the lowest salary.
 
-ASC → Lowest to highest
+Sorting Options
+ASC → Ascending order
+DESC → Descending order
+9. SELECT with LIMIT
 
-3. SELECT with DISTINCT
+LIMIT is commonly used in MySQL and PostgreSQL to restrict the number of rows returned.
 
-DISTINCT removes duplicate values from the result.
-
-SELECT DISTINCT Department
-FROM Employees;
-
-If the table contains:
-
-IT
-HR
-IT
-Sales
-HR
-
-the result will be:
-
-IT
-HR
-Sales
-
-4. SELECT with LIMIT — MySQL
-LIMIT is used to restrict the number of rows returned.
-
+Syntax
+SELECT *
+FROM table_name
+LIMIT number;
+Example
 SELECT *
 FROM Employees
 LIMIT 5;
 
-This returns the first 5 records.
+This returns only the first 5 rows.
 
-DQL Example — Real World
+Real-World Example
 
-An e-commerce company wants to find products costing more than ₹1,000.
+Find the top 5 highest-paid employees:
 
+SELECT Name, Salary
+FROM Employees
+ORDER BY Salary DESC
+LIMIT 5;
+
+Here:
+
+ORDER BY Salary DESC → Sorts salary from highest to lowest.
+LIMIT 5 → Returns only 5 employees.
+10. TOP — SQL Server
+
+TOP is commonly used in Microsoft SQL Server to restrict the number of rows.
+
+Syntax
+SELECT TOP number column1, column2
+FROM table_name;
+Example
+SELECT TOP 5 Name, Salary
+FROM Employees
+ORDER BY Salary DESC;
+
+This returns the top 5 highest-paid employees.
+
+Note: MySQL commonly uses LIMIT, while SQL Server commonly uses TOP.
+
+11. FETCH FIRST
+
+FETCH FIRST is used to limit the number of rows returned by a query.
+
+Syntax
+SELECT column1, column2
+FROM table_name
+FETCH FIRST number ROWS ONLY;
+Example
+SELECT Name, Salary
+FROM Employees
+ORDER BY Salary DESC
+FETCH FIRST 5 ROWS ONLY;
+
+This returns the first 5 rows after sorting.
+
+12. OFFSET
+
+OFFSET is used to skip a specified number of rows before returning the result.
+
+It is commonly used for pagination.
+
+MySQL Syntax
+SELECT *
+FROM table_name
+LIMIT number OFFSET number;
+Example
+SELECT *
+FROM Employees
+LIMIT 5 OFFSET 10;
+Explanation
+OFFSET 10 → Skip the first 10 rows
+LIMIT 5   → Return the next 5 rows
+13. Combining DQL Clauses
+
+DQL becomes more useful when we combine different clauses.
+
+Example
+SELECT Name, Department, Salary
+FROM Employees
+WHERE Salary > 40000
+ORDER BY Salary DESC
+LIMIT 5;
+Explanation
+SELECT → Selects the required columns.
+FROM → Specifies the table.
+WHERE → Filters employees with salary above ₹40,000.
+ORDER BY → Sorts employees by salary.
+DESC → Places the highest salary first.
+LIMIT → Returns only 5 records.
+14. Real-World Example
+
+Suppose an e-commerce company wants to find the 5 most expensive products costing more than ₹1,000.
+
+Query
 SELECT Product_Name, Price
 FROM Products
-WHERE Price > 1000;
+WHERE Price > 1000
+ORDER BY Price DESC
+LIMIT 5;
+Explanation
+WHERE Price > 1000 → Finds products costing more than ₹1,000.
+ORDER BY Price DESC → Sorts products from highest price to lowest price.
+LIMIT 5 → Returns only the top 5 products.
+15. DQL Example with Multiple Conditions
 
-The database returns only products that satisfy the condition.
+Suppose we want employees from the IT department whose salary is greater than ₹50,000.
+
+SELECT Name, Department, Salary
+FROM Employees
+WHERE Department = 'IT'
+AND Salary > 50000;
+
+This returns employees who satisfy both conditions.
+
+16. DQL Example with Unique Values
+
+Find all unique departments:
+
+SELECT DISTINCT Department
+FROM Employees;
+
+This is useful when we want to know which departments exist in the company without showing duplicate department names.
+
+17. DQL Example for Top Salary
+
+Find the employee with the highest salary:
+
+MySQL
+SELECT Name, Salary
+FROM Employees
+ORDER BY Salary DESC
+LIMIT 1;
+
+This sorts salaries from highest to lowest and returns the first record.
+
+18. DQL Example for Lowest Salary
+
+Find the employee with the lowest salary:
+
+SELECT Name, Salary
+FROM Employees
+ORDER BY Salary ASC
+LIMIT 1;
+
+This returns the employee with the lowest salary.
+
+19. DQL Example for Pagination
+
+Suppose a website displays 10 employees on each page.
+
+Page 1
+SELECT *
+FROM Employees
+LIMIT 10 OFFSET 0;
+Page 2
+SELECT *
+FROM Employees
+LIMIT 10 OFFSET 10;
+Page 3
+SELECT *
+FROM Employees
+LIMIT 10 OFFSET 20;
+
+Here:
+
+Page 1 → Skip 0 rows
+Page 2 → Skip 10 rows
+Page 3 → Skip 20 rows
+
+This technique is called pagination.
+
+20. Important DQL Syntax Summary
+Purpose	Syntax
+Retrieve columns:	        SELECT column FROM table;
+Retrieve all columns:    	SELECT * FROM table;
+Filter records:          	SELECT ... FROM table WHERE condition;
+Remove duplicates:       	SELECT DISTINCT column FROM table;
+Sort results:	            SELECT ... ORDER BY column;
+Limit rows:	              SELECT ... LIMIT number;
+Skip rows:  	            LIMIT number OFFSET number;
+SQL Server row:           limit	SELECT TOP number ...
+Standard row limit:      	FETCH FIRST number ROWS ONLY
+
+
+21. Important Points to Remember
+DQL is commonly used to retrieve data from a database.
+SELECT is the main command used for data retrieval.
+FROM specifies the table from which data is retrieved.
+WHERE filters records.
+DISTINCT removes duplicate values.
+ORDER BY sorts the result.
+ASC means ascending order.
+DESC means descending order.
+LIMIT restricts the number of rows in MySQL/PostgreSQL.
+TOP is commonly used in SQL Server.
+FETCH FIRST is another row-limiting syntax.
+OFFSET skips rows and is useful for pagination.
+DQL queries can combine multiple clauses to solve real-world problems.
