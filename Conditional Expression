@@ -1,0 +1,379 @@
+Conditional Expressions in SQL
+1. Definition
+
+Conditional Expressions are used in SQL to check conditions and return different results based on those conditions.
+
+In simple words, they help SQL make decisions inside a query.
+
+For example, we can use a conditional expression to classify employees based on salary:
+
+Salary ≥ 70,000 → High Salary
+Salary ≥ 50,000 → Medium Salary
+Otherwise → Low Salary
+2. Why Do We Use Conditional Expressions?
+
+Conditional expressions are used to:
+
+Check conditions
+Classify data
+Create categories
+Apply business rules
+Create calculated columns
+Make reports easier to understand
+Perform conditional calculations
+Example
+
+Instead of showing only:
+
+Name	Salary
+Rahul	30000
+Priya	55000
+Amit	80000
+
+we can create a meaningful category:
+
+Name	Salary	Category
+Rahul	30000	Low
+Priya	55000	Medium
+Amit	80000	High
+3. Types of Conditional Expressions
+
+The commonly used conditional expressions are:
+
+Conditional Expressions
+│
+├── 1. CASE Expression
+│   ├── Simple CASE
+│   └── Searched CASE / CASE WHEN
+│
+└── 2. IF() Function
+    └── MySQL
+4. CASE Expression
+Definition
+
+CASE is a standard SQL expression used to check conditions and return different results based on those conditions.
+
+It works similarly to if-else logic in programming.
+
+Basic Syntax
+CASE
+    WHEN condition THEN result
+    WHEN condition THEN result
+    ELSE default_result
+END
+Example
+SELECT
+    Name,
+    Salary,
+    CASE
+        WHEN Salary >= 50000 THEN 'High Salary'
+        ELSE 'Low Salary'
+    END AS Salary_Category
+FROM Employees;
+Example Result
+Name	Salary	Salary_Category
+Rahul	60000	High Salary
+Amit	30000	Low Salary
+Important Parts
+CASE → Starts the expression
+WHEN → Checks a condition
+THEN → Gives the result
+ELSE → Gives the default result
+END → Ends the expression
+5. Types of CASE Expression
+
+CASE has two main forms:
+
+Simple CASE
+Searched CASE / CASE WHEN
+5.1 Simple CASE
+Definition
+
+Simple CASE is used when we want to compare one column or expression with specific values.
+
+Syntax
+CASE column_name
+    WHEN value1 THEN result1
+    WHEN value2 THEN result2
+    ELSE default_result
+END
+Example
+
+Suppose the Employees table contains different departments.
+
+SELECT
+    Name,
+    Department,
+    CASE Department
+        WHEN 'IT' THEN 'Technical'
+        WHEN 'HR' THEN 'Human Resources'
+        WHEN 'Sales' THEN 'Sales Team'
+        ELSE 'Other'
+    END AS Department_Type
+FROM Employees;
+Example Result
+Name	Department	Department_Type
+Rahul	IT	Technical
+Priya	HR	Human Resources
+Amit	Sales	Sales Team
+Easy Understanding
+
+SQL compares the Department value:
+
+IT     → Technical
+HR     → Human Resources
+Sales  → Sales Team
+
+Simple CASE is useful when checking exact values.
+
+6. Searched CASE / CASE WHEN
+Definition
+
+Searched CASE is used when we want to check conditions instead of exact values.
+
+It can use:
+
+Comparison operators
+AND
+OR
+BETWEEN
+IN
+Syntax
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    ELSE default_result
+END
+Example
+SELECT
+    Name,
+    Salary,
+    CASE
+        WHEN Salary >= 70000 THEN 'High'
+        WHEN Salary >= 50000 THEN 'Medium'
+        ELSE 'Low'
+    END AS Salary_Category
+FROM Employees;
+Example Result
+Name	Salary	Salary_Category
+Rahul	30000	Low
+Priya	55000	Medium
+Amit	80000	High
+How SQL checks it
+
+For salary 80000:
+
+80000 >= 70000
+       ↓
+     TRUE
+       ↓
+     High
+
+SQL checks conditions from top to bottom and returns the result of the first matching condition.
+
+7. CASE with AND
+
+We can use AND when multiple conditions must be true.
+
+Example
+SELECT
+    Name,
+    Department,
+    Salary,
+    CASE
+        WHEN Department = 'IT' AND Salary > 50000
+        THEN 'Senior IT Employee'
+        ELSE 'Other Employee'
+    END AS Employee_Type
+FROM Employees;
+
+Here both conditions must be true:
+
+Department = 'IT'
+AND
+Salary > 50000
+8. CASE with OR
+
+OR is used when at least one condition should be true.
+
+Example
+SELECT
+    Name,
+    Department,
+    CASE
+        WHEN Department = 'IT'
+             OR Department = 'Data'
+        THEN 'Technical'
+        ELSE 'Non-Technical'
+    END AS Department_Type
+FROM Employees;
+
+If the department is either IT or Data, SQL returns:
+
+Technical
+9. CASE with BETWEEN
+
+BETWEEN can be used to check a range of values.
+
+Example
+SELECT
+    Student_Name,
+    Marks,
+    CASE
+        WHEN Marks BETWEEN 75 AND 100 THEN 'Distinction'
+        WHEN Marks BETWEEN 60 AND 74 THEN 'First Class'
+        WHEN Marks BETWEEN 40 AND 59 THEN 'Pass'
+        ELSE 'Fail'
+    END AS Result
+FROM Students;
+
+This is useful for creating student result categories.
+
+10. CASE with IN
+
+IN can be used when checking multiple possible values.
+
+Example
+SELECT
+    Name,
+    Department,
+    CASE
+        WHEN Department IN ('IT', 'Data', 'Analytics')
+        THEN 'Technical'
+        ELSE 'Non-Technical'
+    END AS Department_Type
+FROM Employees;
+11. CASE for Conditional Calculation
+
+CASE can also be used to perform calculations.
+
+Example
+
+Suppose employees get different bonus percentages based on salary.
+
+SELECT
+    Name,
+    Salary,
+    CASE
+        WHEN Salary >= 70000 THEN Salary * 0.10
+        WHEN Salary >= 50000 THEN Salary * 0.05
+        ELSE Salary * 0.02
+    END AS Bonus
+FROM Employees;
+
+For an employee earning 80000:
+
+80000 × 10% = 8000
+
+So the bonus will be 8000.
+
+12. CASE with Aggregate Functions:
+CASE can be combined with functions such as SUM() and COUNT().
+Example:
+Count the number of IT employees:
+SELECT
+    SUM(
+        CASE
+            WHEN Department = 'IT' THEN 1
+            ELSE 0
+        END
+    ) AS IT_Employees
+FROM Employees;
+
+If there are 5 IT employees, the result will be:
+
+IT_Employees
+5
+
+This technique is very useful in Data Analytics and reporting.
+
+13. IF() Function:
+Definition:
+IF() is a conditional function commonly available in MySQL.
+It checks one condition and returns one value if the condition is true and another value if the condition is false.
+IF() is database-specific. For portable SQL, CASE is generally preferred.
+
+Syntax
+IF(condition, value_if_true, value_if_false)
+Example:
+
+SELECT
+    Name,
+    Salary,
+    IF(Salary >= 50000, 'Eligible', 'Not Eligible') AS Status
+FROM Employees;
+
+Example Result:
+Name    	Salary	    Status
+Rahul	    60000	      Eligible
+Amit	    30000      	Not Eligible
+
+How it works:
+Salary >= 50000
+       ↓
+   TRUE → Eligible
+   FALSE → Not Eligible
+
+14. CASE vs IF():
+
+CASE                                                	IF()
+  
+Standard SQL expression	                        Commonly used in MySQL
+Can handle multiple conditions          	      Mainly handles one condition
+More flexible	                                  Simple and short
+Works across many SQL databases                	Database-specific
+Very important for interviews                  	Useful for MySQL
+
+
+CASE:
+CASE
+    WHEN Salary >= 50000 THEN 'Eligible'
+    ELSE 'Not Eligible'
+END
+
+
+IF():
+IF(Salary >= 50000, 'Eligible', 'Not Eligible')
+
+15. Important Points to Remember:
+
+A. Conditional expressions are used for decision-making in SQL.
+B. CASE is the most important conditional expression.
+C. Simple CASE checks exact values.
+D. Searched CASE checks conditions.
+E. IF() is commonly used in MySQL.
+F. CASE can be used with AND, OR, BETWEEN, and IN.
+G. CASE can be used with aggregate functions.
+H. SQL checks WHEN conditions from top to bottom.
+I. The first matching WHEN condition is returned.
+J. ELSE provides the default result.
+K. END is required to close a CASE expression.
+
+
+🎯 Definition:
+Conditional expressions in SQL are used to evaluate conditions and return different results depending on whether the specified conditions are true or false.
+
+Most Important Syntax:
+CASE
+    WHEN condition THEN result
+    ELSE default_result
+END
+Easy Memory Trick
+WHEN  → Check the condition
+THEN  → Give the result
+ELSE  → Give the default result
+END   → Finish CASE
+
+📌 Final Structure:
+Module 24: Advanced SQL
+
+A. Conditional Expressions
+│
+├── 1. CASE Expression
+│   ├── Simple CASE
+│   └── Searched CASE / CASE WHEN
+│
+└── 2. IF() Function
+    └── MySQL
+
+Next separate topic
