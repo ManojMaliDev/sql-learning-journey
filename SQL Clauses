@@ -7,7 +7,7 @@ A Clause is a part of an SQL statement that is used to perform a specific operat
 
 Clause	                          Purpose
 WHERE                  	  Filters rows based on a condition
-GROUP                     BY	Groups rows with the same values
+GROUP                     BY Groups rows with the same values
 HAVING                  	Filters groups after GROUP BY
 ORDER BY	                Sorts the result
 LIMIT	                    Limits the number of rows returned
