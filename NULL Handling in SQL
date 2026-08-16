@@ -7,10 +7,10 @@ NULL represents missing, unknown, or unavailable data.
 
 For example, suppose an employee table contains:
 
-Employee_ID      	Name	    Salary	Bonus
-101	Rahul	      50000	      5000
-102	Priya	      60000	      NULL
-103	Amit	      70000	      8000
+Employee_ID      	Name	    Salary	  Bonus
+101	              Rahul    50000	   5000
+102	              Priya	   60000	   NULL
+103	              Amit	    70000	   8000
 
 Here, Priya's Bonus is NULL.
 
