@@ -1,0 +1,356 @@
+ NULL Handling in SQL
+1. Definition
+
+NULL Handling means working with NULL values in a database.
+
+NULL represents missing, unknown, or unavailable data.
+
+For example, suppose an employee table contains:
+
+Employee_ID      	Name	    Salary	Bonus
+101	Rahul	      50000	      5000
+102	Priya	      60000	      NULL
+103	Amit	      70000	      8000
+
+Here, Priya's Bonus is NULL.
+
+It means the bonus value is not available or not stored.
+
+Important: NULL is not the same as 0, an empty string '', or a blank value.
+
+2. Why Do We Use NULL Handling?
+
+NULL handling is important because real-world databases often contain missing values.
+
+We use NULL handling to:
+
+Find records with missing values
+Replace missing values
+Display a default value instead of NULL
+Select the first available value
+Avoid calculation problems
+Prepare clean reports
+Handle incomplete data
+3. Types of NULL Handling
+
+The important SQL concepts are:
+
+NULL Handling
+│
+├── 1. IS NULL
+├── 2. IS NOT NULL
+├── 3. IFNULL()       → MySQL
+├── 4. COALESCE()
+└── 5. NULLIF()
+4. IS NULL
+Definition
+
+IS NULL is used to find records where a column contains a NULL value.
+
+Syntax
+SELECT column1, column2
+FROM table_name
+WHERE column_name IS NULL;
+Example
+
+Find employees whose bonus is not available:
+
+SELECT Name, Bonus
+FROM Employees
+WHERE Bonus IS NULL;
+Result
+Name	Bonus
+Priya	NULL
+Important
+
+Do not write:
+
+WHERE Bonus = NULL;
+
+Use:
+
+WHERE Bonus IS NULL;
+5. IS NOT NULL
+Definition
+
+IS NOT NULL is used to find records where a column contains a value and is not NULL.
+
+Syntax
+SELECT column1, column2
+FROM table_name
+WHERE column_name IS NOT NULL;
+Example
+
+Find employees whose bonus is available:
+
+SELECT Name, Bonus
+FROM Employees
+WHERE Bonus IS NOT NULL;
+Result
+Name	Bonus
+Rahul	5000
+Amit	8000
+6. IFNULL()
+Definition
+
+IFNULL() is a MySQL function used to replace a NULL value with another value.
+
+Syntax
+IFNULL(value, replacement_value)
+Example
+
+Suppose Priya's bonus is NULL.
+
+SELECT
+    Name,
+    IFNULL(Bonus, 0) AS Bonus
+FROM Employees;
+Result
+Name	Bonus
+Rahul	5000
+Priya	0
+Amit	8000
+
+Here:
+
+NULL → 0
+Real-world use
+
+If a customer has no discount recorded, we can display 0 instead of NULL.
+
+SELECT
+    Customer_Name,
+    IFNULL(Discount, 0) AS Discount
+FROM Customers;
+7. COALESCE()
+Definition
+
+COALESCE() returns the first non-NULL value from a list of values.
+
+Syntax
+COALESCE(value1, value2, value3, ...);
+
+SQL checks the values from left to right.
+
+Example
+
+Suppose a customer has a phone number and email:
+
+SELECT
+    Customer_Name,
+    COALESCE(Phone, Email, 'No Contact') AS Contact
+FROM Customers;
+
+SQL checks:
+
+Phone
+  ↓
+If NULL
+  ↓
+Email
+  ↓
+If NULL
+  ↓
+No Contact
+
+For example:
+
+Customer	Phone	Email	Contact
+Rahul	NULL	rahul@gmail.com	rahul@gmail.com
+Priya	9876543210	priya@gmail.com	9876543210
+Amit	NULL	NULL	No Contact
+Easy Definition
+
+COALESCE() returns the first value that is not NULL.
+
+8. NULLIF()
+Definition
+
+NULLIF() compares two values.
+
+If both values are equal, it returns NULL.
+
+If they are different, it returns the first value.
+
+Syntax
+NULLIF(value1, value2)
+Example 1
+SELECT NULLIF(10, 10) AS Result;
+
+Result:
+
+NULL
+
+Because:
+
+10 = 10
+Example 2
+SELECT NULLIF(10, 5) AS Result;
+
+Result:
+
+10
+
+Because:
+
+10 ≠ 5
+9. Real-World Use of NULLIF()
+
+One useful application is preventing division by zero.
+
+Suppose we want to calculate price per unit:
+
+SELECT
+    Sales / Quantity AS Price_Per_Unit
+FROM Sales;
+
+If Quantity = 0, the calculation can cause a division-by-zero problem.
+
+We can use:
+
+SELECT
+    Sales / NULLIF(Quantity, 0) AS Price_Per_Unit
+FROM Sales;
+
+If:
+
+Quantity = 0
+
+then:
+
+NULLIF(Quantity, 0)
+
+returns NULL.
+
+10. IFNULL() vs COALESCE()
+
+Both are used for NULL handling, but they work differently.
+
+IFNULL()
+
+Generally checks one value and provides a replacement.
+
+IFNULL(Bonus, 0)
+
+Meaning:
+
+If Bonus is NULL, use 0.
+
+COALESCE()
+
+Can check multiple values.
+
+COALESCE(Phone, Email, Address, 'Not Available')
+
+Meaning:
+
+Return the first value that is not NULL.
+
+11. COALESCE() vs NULLIF()
+COALESCE()
+
+Finds the first non-NULL value.
+
+COALESCE(Phone, Email, 'No Contact')
+NULLIF()
+
+Returns NULL when two values are equal.
+
+NULLIF(Quantity, 0)
+
+If Quantity is 0, it returns NULL.
+
+12. IS NULL vs IS NOT NULL
+Expression	Purpose
+IS NULL	Finds NULL values
+IS NOT NULL	Finds non-NULL values
+Example
+WHERE Bonus IS NULL;
+
+Finds employees with no bonus value.
+
+WHERE Bonus IS NOT NULL;
+
+Finds employees whose bonus is available.
+
+13. Important Difference: NULL vs 0
+
+This is very important for beginners.
+
+Suppose:
+
+Bonus = 0
+
+It means:
+
+The bonus is known and its value is zero.
+
+But:
+
+Bonus = NULL
+
+means:
+
+The bonus value is missing, unknown, or not available.
+
+They are not the same.
+
+14. Important Difference: NULL vs Empty String
+
+NULL and an empty string '' are also different.
+
+NULL
+
+means the value is missing/unknown.
+
+''
+
+means a string exists but contains zero characters.
+
+15. Quick Revision
+Concept	Purpose
+IS NULL	Find NULL values
+IS NOT NULL	Find non-NULL values
+IFNULL()	Replace NULL with another value — MySQL
+COALESCE()	Return first non-NULL value
+NULLIF()	Return NULL when two values are equal
+16. Exam Definitions
+IS NULL
+
+IS NULL is used to check whether a column contains a NULL value.
+
+IS NOT NULL
+
+IS NOT NULL is used to check whether a column does not contain a NULL value.
+
+IFNULL()
+
+IFNULL() is a MySQL function used to replace a NULL value with a specified value.
+
+COALESCE()
+
+COALESCE() returns the first non-NULL value from a list of expressions.
+
+NULLIF()
+
+NULLIF() returns NULL when two expressions are equal; otherwise, it returns the first expression.
+
+17. Easy Memory Trick
+IS NULL
+→ Find NULL
+
+
+IS NOT NULL
+→ Find available values
+
+
+IFNULL()
+→ Replace NULL
+
+
+COALESCE()
+→ Find first non-NULL
+
+
+NULLIF()
+→ Convert equal values to NULL
