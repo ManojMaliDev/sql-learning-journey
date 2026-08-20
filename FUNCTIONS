@@ -1,0 +1,332 @@
+# SQL Functions
+
+## 1. Definition
+
+A **SQL Function** is a built-in or user-defined operation that performs a specific task on data and returns a result.
+
+In simple words:
+
+> A function is a ready-made or user-created tool used to perform calculations, modify data, work with text, dates, numbers, or NULL values.
+
+### Example
+
+```sql
+SELECT UPPER(Name)
+FROM Employees;
+```
+
+If the name is:
+
+```text
+Rahul
+```
+
+The result will be:
+
+```text
+RAHUL
+```
+
+---
+
+# 2. Why Do We Use SQL Functions?
+
+SQL functions are used to:
+
+* Perform calculations
+* Process multiple rows of data
+* Modify text values
+* Work with dates and times
+* Handle NULL values
+* Convert data into required formats
+* Simplify complex queries
+* Create reusable logic
+
+---
+
+# 3. Types of SQL Functions
+
+SQL Functions can mainly be divided into:
+
+```text
+SQL Functions
+│
+├── 1. Built-in Functions
+│   │
+│   ├── Aggregate Functions
+│   ├── String Functions
+│   ├── Numeric / Mathematical Functions
+│   ├── Date & Time Functions
+│   └── NULL Handling Functions
+│
+└── 2. User-Defined Functions
+    │
+    ├── Scalar Functions
+    └── Table-Valued Functions
+```
+
+> **Note:** Function availability and names can differ between MySQL, PostgreSQL, SQL Server, and Oracle.
+
+---
+
+# 4. Built-in Functions
+
+## Definition
+
+**Built-in functions** are functions already provided by the database system.
+
+We can directly use them in SQL queries without creating them ourselves.
+
+Examples:
+
+```sql
+COUNT()
+SUM()
+AVG()
+UPPER()
+LOWER()
+ROUND()
+NOW()
+```
+
+---
+
+# 5. Aggregate Functions
+
+## Definition
+
+Aggregate functions perform calculations on **multiple rows** and return a single result.
+
+### Main Aggregate Functions
+
+```text
+COUNT()
+SUM()
+AVG()
+MAX()
+MIN()
+```
+
+### Example
+
+```sql
+SELECT AVG(Salary) AS Average_Salary
+FROM Employees;
+```
+
+This calculates the average salary of all employees.
+
+---
+
+# 6. String Functions
+
+## Definition
+
+String functions are used to work with **text or character values**.
+
+### Common String Functions
+
+```text
+UPPER()
+LOWER()
+LENGTH()
+SUBSTRING()
+CONCAT()
+TRIM()
+REPLACE()
+```
+
+### Example
+
+```sql
+SELECT UPPER(Name) AS Employee_Name
+FROM Employees;
+```
+
+If the name is:
+
+```text
+Rahul
+```
+
+Result:
+
+```text
+RAHUL
+```
+
+---
+
+# 7. Numeric / Mathematical Functions
+
+## Definition
+
+Numeric functions are used to perform operations on **numeric values**.
+
+### Common Numeric Functions
+
+```text
+ROUND()
+CEIL()
+FLOOR()
+MOD()
+ABS()
+```
+
+### Example
+
+```sql
+SELECT ROUND(125.678, 2) AS Rounded_Value;
+```
+
+Result:
+
+```text
+125.68
+```
+
+---
+
+# 8. Date & Time Functions
+
+## Definition
+
+Date and time functions are used to work with **dates and time values**.
+
+### Common Functions
+
+```text
+NOW()
+CURDATE()
+CURRENT_DATE
+CURRENT_TIMESTAMP
+DATE_FORMAT()
+DATEDIFF()
+```
+
+### Example
+
+```sql
+SELECT CURDATE() AS Today;
+```
+
+This returns the current date.
+
+---
+
+# 9. NULL Handling Functions
+
+## Definition
+
+NULL handling functions are used to work with missing or unknown values.
+
+### Common Functions
+
+```text
+IFNULL()       → MySQL
+COALESCE()
+NULLIF()
+```
+
+### Example
+
+```sql
+SELECT IFNULL(Bonus, 0) AS Bonus
+FROM Employees;
+```
+
+If `Bonus` is `NULL`, the query returns `0`.
+
+---
+
+# 10. User-Defined Functions
+
+## Definition
+
+**User-Defined Functions (UDFs)** are functions created by the developer according to a specific requirement.
+
+They are useful when the same logic needs to be used repeatedly.
+
+### Main Types
+
+```text
+User-Defined Functions
+│
+├── Scalar Function
+└── Table-Valued Function
+```
+
+> The exact types and syntax depend on the database system.
+
+
+# 11. Scalar Function
+
+## Definition
+
+A **Scalar Function** returns a **single value** for each function call.
+
+For example, a function can calculate an employee's annual salary from monthly salary.
+
+Conceptually:
+
+```sql
+Annual_Salary = Monthly_Salary * 12
+```
+
+A scalar function can return:
+
+```
+600000
+```
+
+for one employee.
+
+
+
+# 12. Table-Valued Function
+
+## Definition
+
+A **Table-Valued Function** returns a **table or result set** instead of a single value.
+
+It can be useful when we want to create reusable logic that returns multiple rows and columns.
+
+> Table-valued functions are supported in database systems such as SQL Server and PostgreSQL, with database-specific syntax.
+
+
+# 13. Important Difference
+
+| Type                 | Purpose                      | Result                    |
+| -------------------- | ---------------------------- | ------------------------- |
+| Aggregate Function   | Process multiple rows        | Single value              |
+| String Function      | Work with text               | Modified/calculated value |
+| Numeric Function     | Perform numeric calculations | Numeric value             |
+| Date & Time Function | Work with dates/time         | Date/time value           |
+| NULL Function        | Handle NULL values           | Value/NULL                |
+| Scalar UDF           | Custom reusable logic        | Single value              |
+| Table-Valued UDF     | Custom reusable logic        | Table/result set          |
+
+---
+
+# 14. Important Note: CASE and IF()
+
+Do not confuse **functions** with **conditional expressions**.
+
+### `CASE`
+
+`CASE` is a **conditional expression**, not a function.
+
+
+CASE
+    WHEN Salary >= 50000 THEN 'High'
+    ELSE 'Low'
+END
+
+
+### `IF()`
+
+`IF()` is a function commonly available in MySQL.
+sql
+IF(Salary >= 50000, 'High', 'Low')
+```
+
